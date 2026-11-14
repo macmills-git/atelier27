@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+:root {
+  --bg-obsidian: #0b0b0c;
+  --bg-forest: #061811;
+  --bg-bone: #f6f5f0;
+  --bg-pure-white: #ffffff;
+  --text-white: #ffffff;
+  --text-obsidian: #0b0b0c;
+  --text-muted: #86868b;
+  --border-dark: rgba(255, 255, 255, 0.14);
+  --border-light: rgba(11, 11, 12, 0.12);
+  --accent-cobalt: #1a4bff;
+  --accent-terracotta: #d95d39;
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-obsidian: #0b0b0c;
+  --color-forest: #061811;
+  --color-bone: #f6f5f0;
+  --color-slate-muted: #86868b;
+  --color-cobalt: #1a4bff;
+  --color-terracotta: #d95d39;
+  --font-sans: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  html,
+  body,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: var(--font-sans);
+  }
+
+  html {
+    background-color: var(--bg-obsidian);
+    color: var(--text-white);
+    scroll-padding-top: 84px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-obsidian);
+    color: var(--text-white);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+}
+
+/* Marquee Ticker */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll 34s linear infinite;
+}
+
+.marquee-wrapper:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Gentle Float for Collaborative Cursors & Orbital Portraits */
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.animate-float-slow {
+  animation: float-gentle 5.5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-gentle 6.5s ease-in-out 1.2s infinite;
+}
+
+/* Slow Orbital Rotation for Collaborative Team Cloud */
+@keyframes orbit-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-orbit-slow {
+  animation: orbit-slow 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-orbit-counter-slow {
+  animation: orbit-counter-slow 38s linear infinite;
+  will-change: transform;
+}
+
+/* Blinking Caret */
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-caret {
+  animation: caret-blink 1.05s step-end infinite;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0b0c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+/* User Motion Pause Toggle + OS Reduced Motion */
+html[data-motion="paused"] *,
+html[data-motion="paused"] *::before,
+html[data-motion="paused"] *::after {
+  animation-play-state: paused !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-orbit-slow,
+  .animate-orbit-counter-slow {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
